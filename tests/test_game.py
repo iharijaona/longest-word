@@ -2,6 +2,7 @@ import unittest
 import string
 from game import Game
 
+
 class TestGame(unittest.TestCase):
     def test_game_initialization(self):
         new_game = Game()
@@ -15,14 +16,24 @@ class TestGame(unittest.TestCase):
         new_game = Game()
         self.assertIs(new_game.is_valid(''), False)
 
-    def test_is_valid(self):
+    def test_unknown_word_is_invalid(self):
         new_game = Game()
-        new_game.grid = list('KWEUEAKRZ') # Forcer la grille a un scenario de test :
-        self.assertIs(new_game.is_valid('EUREKA'), True)
-        self.assertEqual(new_game.grid, list('KWEUEAKRZ')) # S'assurer que la grille n'a pas été modifiée
+        # Forcer la grille à un scénario de test :
+        new_game.grid = list('KWIENFUQW')
+        self.assertIs(new_game.is_valid('FEUN'), False)
 
     def test_is_invalid(self):
         new_game = Game()
-        new_game.grid = list('KWEUEAKRZ') # Forcer la grille à un scénario de test :
+        # Forcer la grille à un scénario de test :
+        new_game.grid = list('KWEUEAKRZ')
         self.assertIs(new_game.is_valid('SANDWICH'), False)
-        self.assertEqual(new_game.grid, list('KWEUEAKRZ')) # S'assurer que la grille n'a pas été modifiée
+        # S'assurer que la grille n'a pas été modifiée
+        self.assertEqual(new_game.grid, list('KWEUEAKRZ'))
+
+    def test_is_valid(self):
+        new_game = Game()
+        # Forcer la grille a un scenario de test :
+        new_game.grid = list('KWEUEAKRZ')
+        self.assertIs(new_game.is_valid('EUREKA'), True)
+        # S'assurer que la grille n'a pas été modifiée
+        self.assertEqual(new_game.grid, list('KWEUEAKRZ'))

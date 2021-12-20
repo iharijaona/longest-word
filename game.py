@@ -3,6 +3,8 @@
 
 import random
 import string
+import requests
+
 
 class Game:
     def __init__(self):
@@ -16,8 +18,15 @@ class Game:
     def is_valid(self, word):
         if not word:
             return False
-        letters = self.grid.copy() # Consume letters from the grid
+        letters = self.grid.copy()  # Consume letters from the grid
         for letter in word:
             if letter not in letters:
                 return False
-        return True
+        return Game.__check_dictionary(word)
+
+    @staticmethod
+    def __check_dictionary(word):
+        response = requests.get(
+            f"https://wagon-dictionary.herokuapp.com/{word}")
+        json_response = response.json()
+        return json_response['found']
