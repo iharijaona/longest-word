@@ -3,6 +3,7 @@
 
 import random
 import string
+import requests
 
 
 class Game:
@@ -21,4 +22,11 @@ class Game:
         for letter in word:
             if letter not in letters:
                 return False
-        return True
+        return Game.__check_dictionary(word)
+
+    @staticmethod
+    def __check_dictionary(word):
+        response = requests.get(
+            f"https://wagon-dictionary.herokuapp.com/{word}")
+        json_response = response.json()
+        return json_response['found']
