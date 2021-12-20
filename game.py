@@ -4,6 +4,7 @@
 import random
 import string
 
+
 class Game:
     def __init__(self):
         self.grid = []
@@ -16,7 +17,7 @@ class Game:
     def is_valid(self, word):
         if not word:
             return False
-        letters = self.grid.copy() # Consume letters from the grid
+        letters = self.grid.copy()  # Consume letters from the grid
         for letter in word:
             if letter not in letters:
                 return False
